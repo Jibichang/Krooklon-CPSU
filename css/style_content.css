@@ -141,30 +141,30 @@
 /*////////////timeline///////////*/
 /*
 .row-timeline {
-  width: 100%;
+width: 100%;
 
-  box-sizing: border-box;
-  text-align: center;
-  margin-top: 30px;
+box-sizing: border-box;
+text-align: center;
+margin-top: 30px;
 }
 .row-timeline img {
-  width: 12%;
-  margin-left: 2%;
+width: 12%;
+margin-left: 2%;
 }
 
 .row-timeline:after {
-  display: table;
-  clear: both;
+display: table;
+clear: both;
 }
 
 .col-timeline {
-  float: none;
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
+float: none;
+display: table-cell;
+text-align: center;
+vertical-align: middle;
 }
 /* .col-about img {
-  width: 80%;
+width: 80%;
 } */
 .bar-timeline {
   width: 100%;
@@ -265,7 +265,7 @@ table {
 
 @media screen and (max-width: 600px) {
   .form-com{
-      font-size: 0.7em;
+    font-size: 0.7em;
   }
   .form-com textarea, .form-com input {
     width:100%;
