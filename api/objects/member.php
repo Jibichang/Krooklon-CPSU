@@ -106,6 +106,7 @@ class Member{
     $this->rank = $row['rank'];
     $this->sumScore = $row['sumScore'];
     $this->coin = $row['coin'];
+    $this->username = $row['username'];
   }
 
   public function getMember(){

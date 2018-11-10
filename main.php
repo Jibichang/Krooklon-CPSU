@@ -52,9 +52,10 @@
         <h2><p class="lead">
           คะแนนรวม : <span id="sumScore"></span>
           เหรียญ : <span id="coin"></span>
-        </p></h2>
-        <br>
-        <div class="timeline" style="width: 80%; margin:auto"><?php include('timeline.php');?></div>
+        </p></h2><br>
+        <div class="timeline" style="width: 80%; margin:auto">
+          <?php include('timeline.php');?>
+        </div><br>
       </section>
 
       <section id="about" style="background-color: #ffefcc;">

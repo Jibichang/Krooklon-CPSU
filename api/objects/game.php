@@ -1,5 +1,5 @@
 <?php
-class Member{
+class Game {
   // Connection instance
   private $connection;
 
@@ -10,7 +10,7 @@ class Member{
   public $username;
   public $usernameBattle;
   public $status;
-  public $pageStatus
+  public $pageStatus;
   public $progress;
   public $levelplay;
   public $modeplay;
@@ -25,7 +25,37 @@ class Member{
   }
 
   //C
-  public function create(){ }
+  public function create(){
+    $query = "INSERT INTO onlinemember (username,levelplay,modeplay,botplay,status,onlineLastTime)
+              VALUES ('$this->username','$this->levelplay','$this->modeplay',
+                '$this->botplay','1',NOW())
+                ON  DUPLICATE KEY UPDATE username = '$this->username',
+                    onlineLastTime = NOW()";
+
+    $stmt = $this->connection-> prepare($query);
+
+    // $this->username=htmlspecialchars(strip_tags($this->username));
+    // $this->levelplay=htmlspecialchars(strip_tags($this->levelplay));
+    // $this->modeplay=htmlspecialchars(strip_tags($this->modeplay));
+    // $this->botplay=htmlspecialchars(strip_tags($this->botplay));
+    // $this->status=htmlspecialchars(strip_tags($this->status));
+    // $this->onlineLastTime=htmlspecialchars(strip_tags($this->onlineLastTime));
+
+    // bind values
+    $stmt->bindParam(":username", $this->username);
+    $stmt->bindParam(":levelplay", $this->levelplay);
+    $stmt->bindParam(":modeplay", $this->modeplay);
+    $stmt->bindParam(":botplay", $this->botplay);
+    // $stmt->bindParam(":status", $this->status);
+    // $stmt->bindParam(":onlineLastTime", $this->onlineLastTime);
+
+    if($stmt->execute()){
+         return true;
+     }
+
+     return false;
+
+  }
 
   //R
   public function read(){
@@ -37,28 +67,21 @@ class Member{
   }
 
   //U
-  public function update(){
-    // $query = "UPDATE memberdetail
-    // SET
-    //   username="."''" .$this->username. "'".",
-    //   email=". "'" .$this->email. "'".
-    // "WHERE email=". "'".$this->email."'";
+  public function update($column, $value){
+    $query = "UPDATE $this->table_name
+              SET $column = '".$value. "'
+              WHERE username = '$this->username'";
 
-    $query = "UPDATE $this->table_name SET username='".$this->username."',email='".$this->email."' WHERE email='$this->email'";
-
-    // prepare query statement
     $stmt = $this->connection->prepare($query);
 
     // sanitize
-    $this->username=htmlspecialchars(strip_tags($this->username));
-    $this->email=htmlspecialchars(strip_tags($this->email));
-    $this->password=htmlspecialchars(strip_tags($this->password));
-
-    // bind new values
-    $stmt->bindParam(':username', $this->username);
-    $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':password', $this->password);
-
+    // $this->username=htmlspecialchars(strip_tags($value));
+    //
+    // // bind new values
+    // $stmt->bindParam(':username', $this->username);
+    // $stmt->bindParam(':email', $this->email);
+    // $stmt->bindParam(':password', $this->password);
+    $stmt->bindParam(1, $this->username);
     // execute the query
     if($stmt->execute()) { return true; }
     return false;
@@ -78,23 +101,6 @@ class Member{
   }
 
   // readOne by id
-  public function getInfoGame(){
-    // query to read single record
-    $query = "SELECT * FROM " . $this->table_name . " WHERE id = ?";
-    // prepare query statement
-    $stmt = $this->connection->prepare($query);
-    $stmt->bindParam(1, $this->id);
-    $stmt->execute();
-
-    // get retrieved row
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // set values to object properties
-    $this->id = $row['id'];
-    $this->rank = $row['rank'];
-    $this->sumScore = $row['sumScore'];
-    $this->coin = $row['coin'];
-  }
 
   public function getMember(){
     // query to read single record

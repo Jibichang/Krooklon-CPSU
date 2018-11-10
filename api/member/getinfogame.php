@@ -22,7 +22,8 @@
       "id" => $member->id,
       "rank" => $member->rank,
       "sumScore" => $member->sumScore,
-      "coin"  => $member->coin
+      "coin"  => $member->coin,
+      "username"  => $member->username
   );
 
   print_r(json_encode($member_arr));
