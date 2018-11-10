@@ -3,7 +3,7 @@ $(document).ready(function(){
 });
 
 function Members(){
-  $.getJSON("http://localhost/api/member/read.php", function(data){
+  $.getJSON("api/member/read.php", function(data){
     var read_products_html="";
 
     $.each(data.records, function(key, val) {

@@ -26,6 +26,19 @@ class Game {
 
   //C
   public function create(){
+    try {
+      $query = "SELECT * FROM " . $this->table_name . " WHERE id = ".$this->username;
+      $stmt = $this->connection-> prepare($query);
+
+      $stmt-> execute();
+      return $stmt;
+      
+    } catch (Exception $e) {
+
+    }
+
+
+
     $query = "INSERT INTO onlinemember (username,levelplay,modeplay,botplay,status,onlineLastTime)
               VALUES ('$this->username','$this->levelplay','$this->modeplay',
                 '$this->botplay','1',NOW())
@@ -51,10 +64,8 @@ class Game {
 
     if($stmt->execute()){
          return true;
-     }
-
-     return false;
-
+    }
+         return false;
   }
 
   //R

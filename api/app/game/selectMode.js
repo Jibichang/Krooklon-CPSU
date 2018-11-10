@@ -6,20 +6,20 @@ $(document).ready(function(id){
   // levelplay	modeplay	botplay
   // select mode medium
   $(document).on('click', '#medMode', function(){
-    levelplay = 1;
+    levelplay = "ปานกลาง";
     $('#medMode').attr('class', 'col-about active');
     $('#hardMode').attr('class', 'col-about');
   });
   // select mode hard
   $(document).on('click', '#hardMode', function(){
-    levelplay = 2;
+    levelplay = "ยาก";
     $('#medMode').attr('class', 'col-about');
     $('#hardMode').attr('class', 'col-about active');
   });
 
   // select mode even selectModeEven();
   $(document).on('click', '#pic1', function(){
-    modeplay = 1;
+    modeplay = "โอกาสพิเศษ";
     $('#pic1').attr('class', 'col-p-ne active');
     $("#pic2").attr('class', 'col-p-ne');
     $("#pic3").attr('class', 'col-p-ne');
@@ -27,7 +27,7 @@ $(document).ready(function(id){
     $("#pic5").attr('class', 'col-p-ne');
   });
   $(document).on('click', '#pic2', function(){
-    modeplay = 2;
+    modeplay = "ความรัก";
     $("#pic1").attr('class', 'col-p-ne');
     $('#pic2').attr('class', 'col-p-ne active');
     $("#pic3").attr('class', 'col-p-ne');
@@ -35,7 +35,7 @@ $(document).ready(function(id){
     $("#pic5").attr('class', 'col-p-ne');
   });
   $(document).on('click', '#pic3', function(){
-    modeplay = 3;
+    modeplay = "ดอกไม้";
     $("#pic1").attr('class', 'col-p-ne');
     $("#pic2").attr('class', 'col-p-ne');
     $('#pic3').attr('class', 'col-p-ne active');
@@ -43,7 +43,7 @@ $(document).ready(function(id){
     $("#pic5").attr('class', 'col-p-ne');
   });
   $(document).on('click', '#pic4', function(){
-    modeplay = 4;
+    modeplay = "บุคคลสำคัญ";
     $("#pic1").attr('class', 'col-p-ne');
     $("#pic2").attr('class', 'col-p-ne');
     $("#pic3").attr('class', 'col-p-ne');
@@ -51,7 +51,7 @@ $(document).ready(function(id){
     $("#pic5").attr('class', 'col-p-ne');
   });
   $(document).on('click', '#pic5', function(){
-    modeplay = 5;
+    modeplay = "สถานที่";
     $("#pic1").attr('class', 'col-p-ne');
     $("#pic2").attr('class', 'col-p-ne');
     $("#pic3").attr('class', 'col-p-ne');
@@ -60,13 +60,13 @@ $(document).ready(function(id){
   });
 
   $(document).on('click', '#ch1', function(){
-    chapter = 1;
+    botplay = 1;
     $('#ch1').attr('class', 'col-ch-ne active');
     $('#ch2').attr('class', 'col-ch-ne');
   });
   // select mode hard
   $(document).on('click', '#ch2', function(){
-    chapter = 2;
+    botplay = 2;
     $('#ch1').attr('class', 'col-ch-ne');
     $('#ch2').attr('class', 'col-ch-ne active');
   });
@@ -75,32 +75,32 @@ $(document).ready(function(id){
     x = "mode : " + levelplay + " even : " + modeplay + " chapter : " + botplay;
     $('.result').html(x);
 
-    sendLevel(levelplay, modeplay, botplay);
-
-    //var form_data=JSON.stringify($(this).serializeObject());
-    var form_data = [{  "username": "warunee2",
-                        "levelplay": "levelplay",
-                        "modeplay": "modeplay",
-                        "botplay": "botplay"
-                      }];
-
-  //$('.result').html(form_data);
-  $.ajax({
-    url: "api/game/create.php",
-    type : "POST",
-    contentType : 'application/json',
-    data: JSON.stringify({ form_data: form_data }),
-    dataType: "json",
-    success : function(result) {
-      // product was created, go back to products list
-      alert(result)
-    },
-    failure: function(errMsg) {
-      alert(errMsg);
-    }
+    url = "api/member/getMember.php?id=";
+    var user = "";
+    //var count = "";
+    $.getJSON(url + sessionid, function(data){
+      this.user = data.username;
+      var data = {  "username": this.user,
+                    "levelplay": levelplay,
+                    "modeplay": modeplay,
+                    "botplay": botplay
+                  };
+       //$('.result').html(form_data);
+      $.ajax({
+        url: "api/game/create.php",
+        type : "POST",
+        contentType : 'application/json',
+        data: JSON.stringify(data),///.serializeObject(), //,
+        success : function(result) {
+          sendLevel(levelplay, modeplay, botplay);
+        },
+        error: function(xhr, resp, text) {
+          console.log(xhr, resp, text);
+        }
+      });
+      return false;
+    });
   });
-  return false;
-});
 });
 
 function sendLevel(levelplay,	modeplay,	botplay) {
@@ -117,15 +117,14 @@ function sendLevel(levelplay,	modeplay,	botplay) {
     }
   } else {
     if (botplay == 1) {
-      //location.replace("playHard1.php");
+      location.replace("playHard1.php");
     } else {
       location.replace("playHard2.php");
     }
   }
 }
 
-$.fn.serializeObject = function()
-{
+$.fn.serializeObject = function(){
   var o = {};
   var a = this.serializeArray();
   $.each(a, function() {

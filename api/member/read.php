@@ -28,7 +28,7 @@
             "email" => $email,
             "username" => $username
           );
-          array_push($members["body"], $member_arr);
+          array_push($member_arr);
       }
       echo json_encode($members);
   }  else {

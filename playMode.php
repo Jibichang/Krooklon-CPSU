@@ -30,7 +30,7 @@
     clear: both;
   }
 
-  .col-about {
+  .col-about, .col-about-mode {
     float: none;
     width: 29%;
     padding: 10px;
@@ -42,13 +42,13 @@
     width: 70%;
     cursor: pointer;
   }
-  .col-about:hover{
+  .col-about:hover, .col-p-ne:hover, .col-ch-ne:hover{
     background-color: #ffeccc;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     border-radius: 70%;
   }
-  .col-about .p-ne img {
+  .col-about  .p-ne img , .col-about-mode .p-ne img {
     width: 90%;
   }
 
@@ -82,7 +82,7 @@
   }
 
   @media screen and (max-width: 600px) {
-    .col-about {
+    .col-about, .col-about-mode {
       width: 90%;
       float: left;
       padding: 10px;
@@ -91,16 +91,16 @@
       margin-left: auto;
       font-size: 30%;
     }
-    .col-about .img-ne {
+    .col-about .img-ne, .col-about-mode .img-ne {
       flex: 1;
     }
-    .col-about .p-ne {
+    .col-about .p-ne, .col-about-mode .p-ne {
       flex: 2;
     }
-    .col-about img {
+    .col-about img, .col-about-mode img {
       width: 60%;
     }
-    .col-about .p-ne img {
+    .col-about .p-ne img, .col-about-mode .p-ne img {
       width: 60%;
     }
     #playOne {
@@ -133,6 +133,7 @@
   }
 
   .invisible {
+    outline: none;
     background: Transparent;
     text-decoration: none;
     border: none;
@@ -145,7 +146,6 @@
   <?php include("topbar.php"); ?>
   <script> $('.menu-game').attr('class', 'active');  </script>
   <section id="mainPlay" style="margin-top:30px;">
-    <input type="text" name="username" value="warunee">
     <h1>เล่นเกมแต่งกลอน</h1>
     <h3>เลือกระดับการเล่นที่คุณต้องการ</h3>
     <div class="row-about">
@@ -177,7 +177,7 @@
         </button>
       </div>
 
-      <div class="col-about">
+      <div class="col-about-mode">
         <div class="img-ne">
           <img  src="pic/playOne.png" id="playOne">
           <h5>เล่นคนเดียว</h5>
@@ -185,7 +185,7 @@
         <br>
         <div class="p-ne">
           <p>เลือกหมวดหมู่</p><br>
-          <div id="pic1" class="col-p-ne pic1 ">
+          <div id="pic1" class="col-p-ne">
             <button class="invisible" name="modeplay" value="โอกาสพิเศษ">
               <img class="thumbnail" src="pic/fireworks%20(1).png"><br><h5>โอกาสพิเศษ</h5>
             </button>
@@ -198,7 +198,7 @@
           </div>
 
           <div id="pic3" class="col-p-ne ">
-            <button class="invisible" name="modeplay" value="ดอกไม">
+            <button class="invisible" name="modeplay" value="ดอกไม้">
               <img class="thumbnail" src="pic/flower%20(1).png"><br><h5>ดอกไม้</h5>
             </button>
           </div>
@@ -210,7 +210,7 @@
           </div>
 
           <div id="pic5" class="col-p-ne ">
-            <button class="invisible" name="modeplay" value="สถานที">
+            <button class="invisible" name="modeplay" value="สถานที่">
               <img class="thumbnail" src="pic/map%20(1).png"><br><h5>สถานที่</h5>
             </button>
 

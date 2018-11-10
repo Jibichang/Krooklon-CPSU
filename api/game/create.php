@@ -14,26 +14,36 @@ $connection = $database->getConnection();
 
 $game= new Game($connection);
 $data = json_decode(file_get_contents("php://input"));
+//echo file_get_contents("php://input");
+//$data = $data ->data;
+$game_arr = array(
+  "username" => $data->username,
+  "levelplay" => $data->levelplay,
+  "modeplay" => $data->modeplay,
+  "botplay" => $data->botplay
+);
+print_r(json_encode($game_arr));
 
 if(
   !empty($data->username)
 ){
+
   // set property values levelplay	modeplay	botplay
-  $Game->username = $data->username;
-  $Game->levelplay = $data->levelplay;
-  $Game->modeplay = $data->modeplay;
-  $Game->botplay = $data->botplay;
+  $game->username = $data->username;
+  $game->levelplay = $data->levelplay;
+  $game->modeplay = $data->modeplay;
+  $game->botplay = $data->botplay;
   // $Game->status = $data->status;
   // $Game->onlineLastTime  = $date('Y-m-d H:i:s');
 
-  // create the product
-  if($product->create()){
+  // create
+  if($game->create()){
     // set response code - 201 created
     http_response_code(201);
     // tell the user
     echo json_encode(array("message" => "OnlineMember was created."));
   }
-  // if unable to create the product, tell the user
+  // if unable to create , tell the user
   else{
     // set response code - 503 service unavailable
     http_response_code(503);
