@@ -17,32 +17,22 @@ $cm = new Comment($connection);
 $data = json_decode(file_get_contents("php://input"));
 
 if(
-    !empty($data->username) &&
-    !empty($data->message)
+  !empty($data->username) &&
+  !empty($data->message)
 ){
-
-    // set product property values
-    $cm->username = $data->username;
-    $cm->message = $data->message;
-    $cm->$reg_date = date('Y-m-d H:i:s');
-
-    // create the product
-    if($cm->create()){
-        http_response_code(201);
-        // tell the user
-        echo json_encode(array("message" => "Comment was created."));
-    }
-    // if unable to create the product, tell the user
-    else{
-        http_response_code(503);
-        echo json_encode(array("message" => "Unable to comment."));
-    }
+  $cm->username = $data->username;
+  $cm->message = $data->message;
+  if($cm->create()){
+    http_response_code(201);
+    //echo json_encode(array("message" => "ส่งข้อความเรียบร้อยแล้ว ขอบคุณสำหรับความคิดเห็นค่ะ"));
+  }
+  else{
+    http_response_code(503);
+    //echo json_encode(array("message" => "Unable to comment."));
+  }
 }
-// tell the user data is incomplete
 else{
-    // set response code - 400 bad request
-    http_response_code(400);
-    // tell the user
-    echo json_encode(array("message" => "Unable to comment. Data is incomplete."));
+  http_response_code(400);
+  //json_encode(array("message" => "Unable to comment. Data is incomplete."));
 }
 ?>

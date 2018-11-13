@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="css/style_content.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
-    <script src="api/app/comment/comment.js"></script>
     <script type="text/javascript">
       var sessionid = "<?php echo $_SESSION['id']; ?>";
     </script>
+    <script src="api/app/comment/comment.js"></script>
 
   </head>
 
@@ -31,13 +31,13 @@
           </div>
 
           <div class="form-com">
-            <form action="#" method="post" id='send-comment' >
+            <form method="post" >
               ชื่อผู้เล่น :<br>
               <input type="text" value="" id="username"  readonly/><br>
               <br>
               แสดงความคิดเห็น (200ตัวอักษร) : <br>
               <textarea id="comment" maxlength=200></textarea> <br>
-              <button type="submit" name="button" class="regbutton" style="width:120px; height:42;" >ส่งความคิดเห็น</button>
+              <button type="submit" name="button" id="sendcomment" style="width:120px; height:42px;" >ส่งความคิดเห็น</button>
 
             </form>
           </div>
@@ -45,7 +45,6 @@
       </div>
       <div class="rank" id="table" ></div><br>
     </section>
-
     <?php include('footer.php'); ?>
 
   </body>

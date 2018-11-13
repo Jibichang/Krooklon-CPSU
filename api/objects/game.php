@@ -73,13 +73,6 @@ class Game {
 
     $stmt = $this->connection->prepare($query);
 
-    // sanitize
-    // $this->username=htmlspecialchars(strip_tags($value));
-    //
-    // // bind new values
-    // $stmt->bindParam(':username', $this->username);
-    // $stmt->bindParam(':email', $this->email);
-    // $stmt->bindParam(':password', $this->password);
     $stmt->bindParam(1, $this->username);
     // execute the query
     if($stmt->execute()) { return true; }

@@ -72,12 +72,11 @@ $(document).ready(function(id){
   });
 
   $(document).on('click', '.play-button', function(){
-    x = "mode : " + levelplay + " even : " + modeplay + " chapter : " + botplay;
-    $('.result').html(x);
+    // x = "mode : " + levelplay + " even : " + modeplay + " chapter : " + botplay;
+    // $('.result').html(x);
 
     url = "api/member/getMember.php?id=";
     var user = "";
-    //var count = "";
     $.getJSON(url + sessionid, function(data){
       this.user = data.username;
       var data = {  "username": this.user,
@@ -104,12 +103,7 @@ $(document).ready(function(id){
 });
 
 function sendLevel(levelplay,	modeplay,	botplay) {
-  // 1    ความรัก
-  // 2    โอกาสพิเศษ
-  // 3    สถานที่
-  // 4    บุคคลสำคัญ
-  // 5    ดอกไม้
-  if (levelplay == 1) {
+  if (levelplay == "ปานกลาง") {
     if (botplay == 1) {
 
     } else {
