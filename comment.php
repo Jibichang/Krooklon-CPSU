@@ -31,14 +31,15 @@
           </div>
 
           <div class="form-com">
-            <form method="post" >
+            <form method="post" action="" id="form-comment">
               ชื่อผู้เล่น :<br>
               <input type="text" value="" id="username"  readonly/><br>
               <br>
               แสดงความคิดเห็น (200ตัวอักษร) : <br>
               <textarea id="comment" maxlength=200></textarea> <br>
-              <button type="submit" name="button" id="sendcomment" style="width:120px; height:42px;" >ส่งความคิดเห็น</button>
-
+              <button type="submit" id="sendcomment" style="width:120px; height:42px;">
+                ส่งความคิดเห็น
+              </button>
             </form>
           </div>
 

@@ -15,6 +15,11 @@ $connection = $database->getConnection();
 
 $cm = new Comment($connection);
 $data = json_decode(file_get_contents("php://input"));
+$comment_arr = array(
+  "username" => $data->username,
+  "message" => $data->message
+);
+print_r(json_encode($comment_arr));
 
 if(
   !empty($data->username) &&
@@ -24,15 +29,15 @@ if(
   $cm->message = $data->message;
   if($cm->create()){
     http_response_code(201);
-    //echo json_encode(array("message" => "ส่งข้อความเรียบร้อยแล้ว ขอบคุณสำหรับความคิดเห็นค่ะ"));
+  //  echo json_encode(array("messages" => "Comment was created."));
   }
   else{
     http_response_code(503);
-    //echo json_encode(array("message" => "Unable to comment."));
+  //  echo json_encode(array("messages" => "Unable to comment."));
   }
 }
 else{
   http_response_code(400);
-  //json_encode(array("message" => "Unable to comment. Data is incomplete."));
+//  echo json_encode(array("messages" => "Unable to comment. Data is incomplete."));
 }
 ?>

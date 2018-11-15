@@ -33,7 +33,7 @@ class Game {
     if ($stmt->rowCount() > 0) {
       $query = "UPDATE $this->table_name SET username='$this->username',
                 levelplay='$this->levelplay', modeplay='$this->modeplay',
-                status='1', onlineLastTime = NOW()
+                botplay='$this->botplay', status='1', onlineLastTime = NOW()
                 WHERE username='$this->username'";
     } else {
       $query = "INSERT INTO onlinemember (username,levelplay,modeplay,botplay,status,onlineLastTime)

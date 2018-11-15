@@ -1,5 +1,5 @@
 $(document).ready(function(id){
-  //getInfoGame_one(sessionid);
+  getUser();
   var levelplay = Math.floor(Math.random() * (3 - 1) + 1);
   var modeplay = Math.floor(Math.random() * (6 - 1) + 1);
   var botplay = Math.floor(Math.random() * (3 - 1) + 1);
@@ -58,13 +58,12 @@ $(document).ready(function(id){
     $("#pic4").attr('class', 'col-p-ne');
     $('#pic5').attr('class', 'col-p-ne active');
   });
-
+  // select bot 1 or 2
   $(document).on('click', '#ch1', function(){
     botplay = 1;
     $('#ch1').attr('class', 'col-ch-ne active');
     $('#ch2').attr('class', 'col-ch-ne');
   });
-  // select mode hard
   $(document).on('click', '#ch2', function(){
     botplay = 2;
     $('#ch1').attr('class', 'col-ch-ne');
@@ -74,17 +73,11 @@ $(document).ready(function(id){
   $(document).on('click', '.play-button', function(){
     // x = "mode : " + levelplay + " even : " + modeplay + " chapter : " + botplay;
     // $('.result').html(x);
-
-    url = "api/member/getMember.php?id=";
-    var user = "";
-    $.getJSON(url + sessionid, function(data){
-      this.user = data.username;
-      var data = {  "username": this.user,
+      var data = {  "username": user,
                     "levelplay": levelplay,
                     "modeplay": modeplay,
                     "botplay": botplay
                   };
-       //$('.result').html(form_data);
       $.ajax({
         url: "api/game/create.php",
         type : "POST",
@@ -98,9 +91,18 @@ $(document).ready(function(id){
         }
       });
       return false;
-    });
   });
 });
+
+function getUser() {
+  url = "api/member/getMember.php?id=";
+  user = "";
+  $.getJSON(url + sessionid, function(data){
+    user = data.username;
+    $('#username').attr("placeholder", user);
+    //$('#username').attr("value", this.user);
+  });
+}
 
 function sendLevel(levelplay,	modeplay,	botplay) {
   if (levelplay == "ปานกลาง") {
@@ -117,19 +119,3 @@ function sendLevel(levelplay,	modeplay,	botplay) {
     }
   }
 }
-
-$.fn.serializeObject = function(){
-  var o = {};
-  var a = this.serializeArray();
-  $.each(a, function() {
-    if (o[this.name] !== undefined) {
-      if (!o[this.name].push) {
-        o[this.name] = [o[this.name]];
-      }
-      o[this.name].push(this.value || '');
-    } else {
-      o[this.name] = this.value || '';
-    }
-  });
-  return o;
-};
