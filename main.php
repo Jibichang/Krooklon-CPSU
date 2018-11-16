@@ -56,6 +56,11 @@
         <div class="timeline" style="width: 80%; margin:auto">
           <?php include('timeline.php');?>
         </div><br>
+        <script src="api/app/game/History.js"></script>
+        
+        <div class="xxl">
+
+        </div>
       </section>
 
       <section id="about" style="background-color: #ffefcc;">
