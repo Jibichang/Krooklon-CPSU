@@ -21,7 +21,7 @@
     <?php include("topbar.php"); ?>
     <script type="text/javascript"> $('.menu-comm').attr('class', 'active'); </script>
     <section id="home" style="margin-top:30px; height:500px;">
-      <h1>แก้ไขข้อมูลส่วนตัว</h1>
+      <h1>แสดงความคิดเห็น</h1>
       <br>
 
       <div class="row-com">

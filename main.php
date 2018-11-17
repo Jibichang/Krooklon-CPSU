@@ -11,14 +11,14 @@
   <link rel="stylesheet" href="css/style_content.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
-  <!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <link rel="stylesheet" href="css/ie.css">
-  <![endif]-->
+
   <script src="js/responsive-nav.js"></script>
   <script type="text/javascript">
-    var sessionid = "<?php echo $_SESSION['id']; ?>";
+  var sessionid = "<?php echo $_SESSION['id']; ?>";
+  max_count = 10;
   </script>
+  <script src="api/app/member/getinfogame.js"></script>
+  <script src="api/app/game/History.js"></script>
 
 </head>
 <body>
@@ -47,7 +47,6 @@
       </header>
 
       <section id="home" style="margin-top:30px;">
-        <script src="api/app/member/getinfogame.js"></script>
         <h1> ระดับยศ : <span id="rank"></span> </h1>
         <h2><p class="lead">
           คะแนนรวม : <span id="sumScore"></span>
@@ -55,11 +54,12 @@
         </p></h2><br>
         <div class="timeline" style="width: 80%; margin:auto">
           <?php include('timeline.php');?>
-        </div><br>
-        <script src="api/app/game/History.js"></script>
-        
-        <div class="xxl">
+        </div><br><br>
 
+        <h1>ประวัติการเล่น</h1>
+        <div class="history-div"></div>
+        <div id="readmore"style="text-align:right;">
+          <br><a href="historyMore.php">ดูประวัติการเล่นเพิ่มเติม >></a>
         </div>
       </section>
 

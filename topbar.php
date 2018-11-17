@@ -19,7 +19,7 @@
           <!-- target="_blank" -->
           <li class="menu-comm"><a href="comment.php" data-scroll>แสดงความคิดเห็น</a></li>
           <li class="menu-rank"><a href="rankPlayer.php" data-scroll>อันดับ</a></li>
-          <li class="menu-main"><a href="main.php#about" data-scroll>เกี่ยวกับ</a></li>
+          <li class="menu-about"><a href="main.php#about" data-scroll>เกี่ยวกับ</a></li>
         </ul>
       </nav>
       <script src="js/responsive-nav.js"></script>

@@ -9,15 +9,12 @@
   <link rel="stylesheet" href="css/style_content.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
-
-
 </head>
-
 <body>
   <?php include("topbar.php"); ?>
   <script type="text/javascript"> $('.menu-comm').attr('class', 'active'); </script>
   <section id="home" style="margin-top:30px;">
-    <h1>แสดงความคิดเห็น</h1>
+    <h1>แก้ไขข้อมูลส่วนตัว</h1>
     <br>
 
     <div class="row-com">
