@@ -78,6 +78,9 @@
   .col-home img {
     width: 40%;
   }
+  .button-submit a {
+    padding: 5px 10px 5px 10px;
+  }
 }
 
 /*////////////about///////////*/
@@ -104,7 +107,7 @@
 
 .col-about {
   float: none;
-  width: 29%;
+  width: 30%;
   padding: 10px;
   display: table-cell;
   text-align: center;
@@ -116,9 +119,9 @@
 
 @media screen and (max-width: 600px) {
   .col-about {
-    width: 90%;
-    float: left;
-    padding: 10px;
+    width: 98%;
+    float: none;
+    padding: 2%;
     text-align: left;
     display: flex;
     margin-left: auto;

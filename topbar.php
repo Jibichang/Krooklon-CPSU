@@ -1,4 +1,13 @@
 <header>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('click', '#logout', function(){
+      setCookie("jwt", "", 1);
+      alert("ออกจากระบบเรียบร้อยแล้ว");
+      //location.replace("index.php");
+    });
+  });
+  </script>
   <a href="main.php" class="logo" data-scroll>
     <img src="pic/logo1.png" style="height: 48px" class="logo"></a>
 
@@ -7,7 +16,7 @@
         <img src="pic/avatar.png" style="height: 48px" class="user"></a>
         <div class="dropdown-user">
           <a href="editProfile.php">แก้ไขข้อมูล</a>
-          <a href="#">ออกจากระบบ</a>
+          <a href="" id="logout">ออกจากระบบ</a>
         </div>
       </div>
 
@@ -22,6 +31,7 @@
           <li class="menu-about"><a href="main.php#about" data-scroll>เกี่ยวกับ</a></li>
         </ul>
       </nav>
+
       <script src="js/responsive-nav.js"></script>
       <script src="js/fastclick.js"></script>
       <script src="js/scroll.js"></script>

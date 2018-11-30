@@ -9,9 +9,19 @@ summary, hgroup {
   border: 0;
   font-family: 'K2D', sans-serif;
 }
+.row-regist {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.row-regist:after {
+  display: table;
+  clear: both;
+}
 
 .col-regist {
-  width: 40%;
+  width: 30%;
   margin: auto;
   margin-top: 60px;
   text-align: center;
@@ -48,11 +58,26 @@ input[type=submit]:hover {
   background-color: #fff;
   border: 2px solid #ffcc66;
 }
+#logokk{
+  width: 250px;
+}
+.apilog{
+  width: 50px;
 
-@media only screen and (max-device-width: 1024px) {
+}
+
+@media only screen and (max-device-width: 1000px) {
   .col-regist {
-    width: 50%;
+
+      width: 60%;
     margin-top: 20%;
-    font-size: 2em;
+    font-size: 12px;
+  }
+  #logokk{
+    width: 100px;
+  }
+  .apilog{
+    width: 20px;
+
   }
 }

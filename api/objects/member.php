@@ -36,10 +36,47 @@ class Member{
     $this->connection = $connection;
   }
 
-  //C
-  public function create(){ }
+  public function create(){
+  $sid = md5($this->email);
 
-  //R
+    $query = "INSERT INTO $this->table_name
+    SET  rank = 'ลูกเจี๊ยบหัดเดิน',
+        rankNo = '1',
+         username = :username,
+        password = :password,
+         email = :email,
+          filePic = 'defultKruklon.png',
+    learn1 = '0',
+    learn2 = '0',
+    learn3 = '0',
+    prosody = '0',
+    melody = '0',
+    fast = '0',
+    win = '0',
+          count = '0',
+                sumScore = '0',
+      coin = '5',
+      SID = '$sid',
+      active = 'no'";
+
+      $stmt = $this->connection->prepare($query);
+
+      $this->username=htmlspecialchars(strip_tags($this->username));
+      $this->email=htmlspecialchars(strip_tags($this->email));
+      $this->password=htmlspecialchars(strip_tags($this->password));
+
+      $stmt->bindParam(':username', $this->username);
+      $stmt->bindParam(':email', $this->email);
+
+      $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+      $stmt->bindParam(':password', $password_hash);
+
+      if($stmt->execute()){
+        return true;
+      }
+      return false;
+  }
+
   public function read(){
     $query = "SELECT * FROM " . $this->table_name;
     $stmt = $this->connection-> prepare($query);
@@ -48,14 +85,7 @@ class Member{
     return $stmt;
   }
 
-  //U
   public function update(){
-    // $query = "UPDATE memberdetail
-    // SET
-    //   username="."''" .$this->username. "'".",
-    //   email=". "'" .$this->email. "'".
-    // "WHERE email=". "'".$this->email."'";
-
     $query = "UPDATE $this->table_name SET username='".$this->username."',email='".$this->email."' WHERE email='$this->email'";
 
     // prepare query statement
@@ -126,87 +156,32 @@ class Member{
     $this->username = $row['username'];
   }
 
-  public function checkLogin(){
-    $this->active = "yes";
-    // query to read single record
-    $query = "SELECT * FROM " . $this->table_name . " email='$email' OR username='$email'";
-    // prepare query statement
-    $stmt = $this->connection->prepare($query);
-    $stmt->bindParam(1, $this->email);
-    $stmt->execute();
+  function emailExists(){
+      $query = "SELECT id, username, password, email
+      FROM  $this->table_name
+      WHERE email = ?
+      LIMIT 0,1";
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      // prepare the query
+      $stmt = $this->connection->prepare( $query );
+      $this->email=htmlspecialchars(strip_tags($this->email));
+      $stmt->bindParam(1, $this->email);
 
-    $this->email = $row['email'];
-    $this->password = $row['password'];
-  }
-
-  public function isEmail($email)
-  {
-    try {
-      $query = "SELECT * FROM " . $this->table_name . " email='$email' OR username='$email'";
-      $stmt = $this->connection->prepare($query);
-      $stmt->bindParam("email", $this->email, PDO::PARAM_STR);
       $stmt->execute();
-      if ($stmt->rowCount() > 0) {
+      $num = $stmt->rowCount();
+
+      // if email exists, assign values to object properties for easy access and use for php sessions
+      if($num>0){
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->id = $row['id'];
+        $this->username = $row['username'];
+        $this->email = $row['email'];
+        $this->password = $row['password'];
         return true;
-      } else {
-        return false;
       }
-    } catch (PDOException $e) {
-      exit($e->getMessage());
+      return false;
     }
-  }
-
-  public function isUsername($username)
-  {
-    try {
-      $query = "SELECT * FROM " . $this->table_name . " email='$email' OR username='$email'";
-      $stmt = $this->connection->prepare($query);
-      $stmt->bindParam("username", $this->username, PDO::PARAM_STR);
-      $stmt->execute();
-      if ($stmt->rowCount() > 0) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (PDOException $e) {
-      exit($e->getMessage());
-    }
-  }
-
-  public function Login($un, $pw)
-  {
-    try {
-      $query = "SELECT * FROM " . $this->table_name . " email='$email' OR username='$email'";
-      $stmt = $this->connection->prepare($query);
-      $stmt->bindParam("username", $this->username, PDO::PARAM_STR);
-      $enc_password = password_hash($this->password, PASSWORD_DEFAULT);
-      $stmt->bindParam("password", $enc_password, PDO::PARAM_STR);
-      $stmt->execute();
-      if ($stmt->rowCount() > 0) {
-        $row = $stmt->fetch(PDO::FETCH_OBJ);
-
-        if (password_verify($pw,$row->password) && $row->active=='yes') {
-          $_SESSION['valid'] = true;
-          $_SESSION['timeout'] = time();
-          $_SESSION['email'] = $row->email; //$row['email'];
-          $_SESSION['username'] = $row->username; //$row["username"];
-
-          setDataLogin();
-        } else if (password_verify($pw,$row->password) && $row->active=='no') {
-          $msgerrorpass = '* ยังไม่ยืนยันอีเมล์';
-        } else {
-          $msgerrorpass = '* รหัสผ่านผิด';
-        }
-      } else {
-        $msgerroremail='* ไม่พบ Email หรือ Username นี้';
-        return false;
-      }
-    } catch (PDOException $e) {
-      exit($e->getMessage());
-    }
-  }
 
   public function setDataLogin($username, $password)
   {

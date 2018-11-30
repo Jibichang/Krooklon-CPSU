@@ -13,12 +13,14 @@
   <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
 
   <script src="js/responsive-nav.js"></script>
+
   <script type="text/javascript">
   var sessionid = "<?php echo $_SESSION['id']; ?>";
   max_count = 10;
   </script>
   <script src="api/app/member/getinfogame.js"></script>
   <script src="api/app/game/History.js"></script>
+  <script src="api/app/member/login_member.js"></script>
 
 </head>
 <body>
@@ -31,7 +33,7 @@
           <img src="pic/avatar.png" style="height: 48px" class="user"></a>
           <div class="dropdown-user">
             <a href="#">แก้ไขข้อมูล</a>
-            <a href="#">ออกจากระบบ</a>
+            <a href="#" id="logout">ออกจากระบบ</a>
           </div>
         </div>
         <nav class="nav-collapse">
@@ -104,6 +106,7 @@
       <script src="js/fastclick.js"></script>
       <script src="js/scroll.js"></script>
       <script src="js/fixed-responsive-nav.js"></script>
+
       <?php include('footer.php'); ?>
     </body>
     </html>
