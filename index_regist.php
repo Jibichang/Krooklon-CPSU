@@ -38,7 +38,7 @@
             <a href="<?php echo $login_url; ?>" id="api"><img src="pic/twitter.png" class="apilog"></a>
             <a href="#" onclick="facebookLogin();" id="api"><img src="pic/facebook.png" onclick="facebookLogin();" class="apilog"></a>
             <a href="#" id="api"><img src="pic/google-plus.png" id="customBtn" class="apilog"></a><br>
-            <p>เป็นสมาชิกอยู่แล้ว  <a href="" id="log_in">เข้าสู่ระบบ</a></p><br>
+            <p>เป็นสมาชิกอยู่แล้ว  <a href="index_login.php" id="log_in">เข้าสู่ระบบ</a></p><br>
           </form>
         </div>
       </div>

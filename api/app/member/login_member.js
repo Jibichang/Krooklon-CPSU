@@ -131,14 +131,10 @@ function showLoggedOutMenu(){
 function showHomePage(){
   var jwt = getCookie('jwt');
   $.post("api/member/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
-
     location.replace("main.php");
   })
-
-  // show login page on error
   .fail(function(result){
-    // showLoginPage();
-    $('#response').html("<div class='alert alert-danger'>Please login to access the home page.</div>");
+    location.replace("index.php");
   });
 }
 
@@ -168,40 +164,19 @@ function showLoggedInMenu(){
 function showUpdateAccountForm(){
   // validate jwt to verify access
   var jwt = getCookie('jwt');
+  alert("ok");
   $.post("api/member/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
-
+    alert("ok");
     // if response is valid, put user details in the form
-    var html = `
-    <h2>Update Account</h2>
-    <form id='update_account_form'>
-    <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" id="name" required value="` + result.data.name + `" />
-    </div>
-
-    <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" name="email" id="email" required value="` + result.data.email + `" />
-    </div>
-
-    <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="password" id="password" />
-    </div>
-
-    <button type='submit' class='btn btn-primary'>
-    Save Changes
-    </button>
-    </form>
-    `;
-
-    clearResponse();
-    $('#content').html(html);
+    // $('#username').attr("value", result.data.username);
+    // $('#email').attr("value", result.data.email);
+    // $("#username").val(result.data.username);
+    // $("#email").val(result.data.email);
   })
 
   // on error/fail, tell the user he needs to login to show the account page
   .fail(function(result){
-    showLoginPage();
+    // showLoginPage();
     $('#response').html("<div class='alert alert-danger'>Please login to access the account page.</div>");
   });
 }

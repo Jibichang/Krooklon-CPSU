@@ -317,6 +317,7 @@ table {
   border: 1px grey solid;
   height:30px;
   width:70%;
+  margin-bottom: 5px;
 }
 
 .form-com textarea {
@@ -325,8 +326,8 @@ table {
   height:50px;
   width:70%;
 }
-.form-com img {
-  height:70%;
+.img-com img {
+  width: 100px;
 }
 
 @media screen and (max-width: 600px) {
@@ -336,8 +337,8 @@ table {
   .form-com textarea, .form-com input {
     width:100%;
   }
-  .form-com img {
-    height:50%;
+  .img-com img {
+    width: 60px;
   }
 }
 

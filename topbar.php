@@ -1,12 +1,18 @@
 <header>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    $(document).on('click', '#logout', function(){
-      setCookie("jwt", "", 1);
-      alert("ออกจากระบบเรียบร้อยแล้ว");
-      //location.replace("index.php");
-    });
-  });
+  <script src="api/app/member/login_member.js">
+  // $(document).ready(function(){
+  //   $(document).on('click', '#logout', function(){
+  //     setCookie("jwt", "", 1);
+  //     alert("ออกจากระบบเรียบร้อยแล้ว");
+  //     location.replace("index.php");
+  //   });
+  // });
+  // function setCookie(cname, cvalue, exdays) {
+  //   var d = new Date();
+  //   d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  //   var expires = "expires="+ d.toUTCString();
+  //   document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  // }
   </script>
   <a href="main.php" class="logo" data-scroll>
     <img src="pic/logo1.png" style="height: 48px" class="logo"></a>
@@ -15,7 +21,7 @@
       <a href="#">
         <img src="pic/avatar.png" style="height: 48px" class="user"></a>
         <div class="dropdown-user">
-          <a href="editProfile.php">แก้ไขข้อมูล</a>
+          <a href="editProfile.php" >แก้ไขข้อมูล</a>
           <a href="" id="logout">ออกจากระบบ</a>
         </div>
       </div>

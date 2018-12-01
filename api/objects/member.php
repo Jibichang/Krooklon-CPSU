@@ -85,24 +85,59 @@ class Member{
     return $stmt;
   }
 
-  public function update(){
-    $query = "UPDATE $this->table_name SET username='".$this->username."',email='".$this->email."' WHERE email='$this->email'";
+  // public function update(){
+  //   $query = "UPDATE $this->table_name SET username='".$this->username."',email='".$this->email."' WHERE email='$this->email'";
+  //
+  //   // prepare query statement
+  //   $stmt = $this->connection->prepare($query);
+  //
+  //   // sanitize
+  //   $this->username=htmlspecialchars(strip_tags($this->username));
+  //   $this->email=htmlspecialchars(strip_tags($this->email));
+  //   $this->password=htmlspecialchars(strip_tags($this->password));
+  //
+  //   // bind new values
+  //   $stmt->bindParam(':username', $this->username);
+  //   $stmt->bindParam(':email', $this->email);
+  //   $stmt->bindParam(':password', $this->password);
+  //
+  //   // execute the query
+  //   if($stmt->execute()) { return true; }
+  //   return false;
+  // }
 
-    // prepare query statement
+  function update(){
+    $password_set=!empty($this->password) ? " password = :password" : "";
+
+    $query = "UPDATE $this->table_name
+    SET
+    username = :username,
+    email = :email,
+    {$password_set}
+    WHERE
+    id = :id";
+
     $stmt = $this->connection->prepare($query);
 
-    // sanitize
     $this->username=htmlspecialchars(strip_tags($this->username));
     $this->email=htmlspecialchars(strip_tags($this->email));
-    $this->password=htmlspecialchars(strip_tags($this->password));
+    $this->id=htmlspecialchars(strip_tags($this->id));
 
-    // bind new values
     $stmt->bindParam(':username', $this->username);
     $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':password', $this->password);
+    $stmt->bindParam(':id', $this->id);
 
-    // execute the query
-    if($stmt->execute()) { return true; }
+    // hash the password before saving to database
+    if(!empty($this->password)){
+      $this->password=htmlspecialchars(strip_tags($this->password));
+      $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+      $stmt->bindParam(':password', $password_hash);
+    }
+     $stmt->bindParam(':id', $this->id);
+
+    if($stmt->execute()){
+      return true;
+    }
     return false;
   }
 

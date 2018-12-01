@@ -9,10 +9,109 @@
   <link rel="stylesheet" href="css/style_content.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
+  <!-- <script src="api/app/member/login_member.js"></script> -->
+
+  <script type="text/javascript">
+
+    $(document).ready(function(){
+        var jwt = getCookie('jwt');
+        // alert(jwt);
+        $.post("api/member/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+          // alert("ok");
+          // if response is valid, put user details in the form
+          $('#username').attr("value", result.data.username);
+          $('#email').attr("value", result.data.email);
+          $('#id').attr("value", result.data.id);
+          // $("#username").val(result.data.username);
+          // $("#email").val(result.data.email);
+        })
+        .fail(function(result){
+          $('#response').html("<div class='alert alert-danger'>Please login to access the account page.</div>");
+        });
+
+        $(document).on('submit', '#update_account_form', function(){
+
+          var update_account_form=$(this);
+          var jwt = getCookie('jwt');
+
+          // get form data
+          var update_account_form_obj = update_account_form.serializeObject()
+          update_account_form_obj.jwt = jwt;
+          var form_data=JSON.stringify(update_account_form_obj);
+            $('#response').html(form_data);
+          $.ajax({
+            url: "api/member/update_user.php",
+            type : "POST",
+            contentType : 'application/json',
+            data : form_data,
+            success : function(result) {
+              alert("ok");
+              // tell the user account was updated
+              $('#response').html("<div class='alert alert-success'>Account was updated.</div>");
+
+              // store new jwt to coookie
+              setCookie("jwt", result.jwt, 1);
+            },
+
+            // show error message to user
+            error: function(xhr, resp, text){
+              alert("no");
+              if(xhr.responseJSON.message=="Unable to update user."){
+                $('#response').html("<div class='alert alert-danger'>Unable to update account.</div>");
+              }
+              else if(xhr.responseJSON.message=="Access denied."){
+                // showLoginPage();
+                $('#response').html("<div class='alert alert-success'>Access denied. Please login</div>");
+              }
+
+            }
+          });
+
+          return false;
+        });
+
+
+    });
+
+    function getCookie(cname){
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' '){
+          c = c.substring(1);
+        }
+
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+
+            $.fn.serializeObject = function(){
+
+              var o = {};
+              var a = this.serializeArray();
+              $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                  if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                  }
+                  o[this.name].push(this.value || '');
+                } else {
+                  o[this.name] = this.value || '';
+                }
+              });
+              return o;
+            };
+
+  </script>
 </head>
 <body>
   <?php include("topbar.php"); ?>
-  <script type="text/javascript"> $('.menu-comm').attr('class', 'active'); </script>
   <section id="home" style="margin-top:30px;">
     <h1>แก้ไขข้อมูลส่วนตัว</h1>
     <br>
@@ -23,15 +122,18 @@
           <img src="pic/avatar.png"></a>
         </div>
         <div class="form-com">
-          <form class="" action="" method="post">
+          <form method="post" id="update_account_form" >
+            <!-- <input type="text" name="id" value="" id="id"> -->
             ชื่อผู้เล่น :<br>
-            <input type=text name=username value="example" readonly/><br>
-            <br>
-            แสดงความคิดเห็น (200ตัวอักษร) : <br>
-            <textarea name=comment maxlength=200></textarea> <br>
-            <input type="submit" style="width:120px; height:42;" class="regbutton" value="ส่งความคิดเห็น" name="submit">
+            <input type=text name="username" value="" id="username"/><br>
+            อีเมล์ :<br>
+            <input type=text name="email" value="" id="email" readonly/><br>
+            รหัสผ่าน : <br>
+            <input type="password" class="form-control" name="password" id="password" /><br>
+            <input type="submit" style="width:120px; height:40px; margin-top:4px;"
+            class="regbutton" value="แก้ไขข้อมูลส่วนตัว" name="submit" id="update_account_form">
 
-          </form>
+          </form><br><div id="response">  </div>
         </div>
 
       </div>
