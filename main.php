@@ -18,9 +18,10 @@
   var sessionid = "<?php echo $_SESSION['id']; ?>";
   max_count = 10;
   </script>
+    <script src="api/app/member/login_member.js"></script>
   <script src="api/app/member/getinfogame.js"></script>
   <script src="api/app/game/History.js"></script>
-  <script src="api/app/member/login_member.js"></script>
+
 
 </head>
 <body>

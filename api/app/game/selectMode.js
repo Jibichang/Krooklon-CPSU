@@ -1,5 +1,4 @@
 $(document).ready(function(id){
-  getUser();
   var levelplay = Math.floor(Math.random() * (3 - 1) + 1);
   var modeplay = Math.floor(Math.random() * (6 - 1) + 1);
   var botplay = Math.floor(Math.random() * (3 - 1) + 1);
@@ -71,38 +70,27 @@ $(document).ready(function(id){
   });
 
   $(document).on('click', '.play-button', function(){
-    // x = "mode : " + levelplay + " even : " + modeplay + " chapter : " + botplay;
-    // $('.result').html(x);
-      var data = {  "username": user,
-                    "levelplay": levelplay,
-                    "modeplay": modeplay,
-                    "botplay": botplay
-                  };
-      $.ajax({
-        url: "api/game/create.php",
-        type : "POST",
-        contentType : 'application/json',
-        data: JSON.stringify(data),///.serializeObject(), //,
-        success : function(result) {
-          sendLevel(levelplay, modeplay, botplay);
-        },
-        error: function(xhr, resp, text) {
-          console.log(xhr, resp, text);
-        }
-      });
-      return false;
+    showPage();
+    var data = {  "username": user,
+    "levelplay": levelplay,
+    "modeplay": modeplay,
+    "botplay": botplay
+  };
+  $.ajax({
+    url: "api/game/create.php",
+    type : "POST",
+    contentType : 'application/json',
+    data: JSON.stringify(data),///.serializeObject(), //,
+    success : function(result) {
+      sendLevel(levelplay, modeplay, botplay);
+    },
+    error: function(xhr, resp, text) {
+      console.log(xhr, resp, text);
+    }
   });
+  return false;
 });
-
-function getUser() {
-  url = "api/member/getMember.php?id=";
-  user = "";
-  $.getJSON(url + sessionid, function(data){
-    user = data.username;
-    $('#username').attr("placeholder", user);
-    //$('#username').attr("value", this.user);
-  });
-}
+});
 
 function sendLevel(levelplay,	modeplay,	botplay) {
   if (levelplay == "ปานกลาง") {
@@ -118,4 +106,33 @@ function sendLevel(levelplay,	modeplay,	botplay) {
       location.replace("playHard2.php");
     }
   }
+}
+
+function getCookie(cname){
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' '){
+      c = c.substring(1);
+    }
+
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function showPage() {
+  var jwt = getCookie('jwt');
+  $.post("api/member/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+    user = result.data.username;
+    id = result.data.id;
+    // alert(result.data.id + " " + result.data.username);
+    getInfoGame_one(id);
+  }).fail(function(result){
+    location.replace("index.php");
+  });
 }

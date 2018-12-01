@@ -1,19 +1,31 @@
 $(document).ready(function(){
-  getUser();
-  var data = {"username": user};
-  $.ajax({
-    url: "api/game/History.php",
-    type : "POST",
-    contentType : 'application/json',
-    data: JSON.stringify(data),///.serializeObject(), //,
-    success : function(result) {
-      showHistory(result);
-    },
-    error: function(xhr, resp, text) {
-      console.log(xhr, resp, text);
-    }
+  // showHomePage();
+  // getUser();
+  var user;
+  var jwt = getCookie('jwt');
+  $.post("api/member/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+    user = result.data.username;
+    id = result.data.id;
+    // alert(result.data.id);
+    var data = {"username": user};
+    $.ajax({
+      url: "api/game/History.php",
+      type : "POST",
+      contentType : 'application/json',
+      data: JSON.stringify(data),///.serializeObject(), //,
+      success : function(result) {
+        showHistory(result);
+      },
+      error: function(xhr, resp, text) {
+        console.log(xhr, resp, text);
+      }
+    });
+    return false;
+  }).fail(function(result){
+    location.replace("index.php");
   });
-  return false;
+
+
 });
 
 function showHistory(result) {
@@ -116,4 +128,21 @@ function getUser() {
   $.getJSON(url + sessionid, function(data){
     user = data.username;
   });
+}
+
+function getCookie(cname){
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' '){
+      c = c.substring(1);
+    }
+
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }

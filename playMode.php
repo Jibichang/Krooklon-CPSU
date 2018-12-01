@@ -11,10 +11,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
   <script src="api/app/game/selectMode.js"></script>
-  <script type="text/javascript">
-  var sessionid = "<?php echo $_SESSION['id']; ?>";
-
-  </script>
 
   <style media="screen">
   .row-about {

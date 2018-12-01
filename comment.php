@@ -31,7 +31,7 @@
           </div>
 
           <div class="form-com">
-            <form method="post" action="" id="form-comment">
+            <form method="post" action="" id="form-comment" name="comment_form">
               ชื่อผู้เล่น :<br>
               <input type="text" value="" id="username"  readonly/><br>
               <br>

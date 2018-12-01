@@ -1,25 +1,38 @@
 $(document).ready(function(id){
-  getInfoGame_one(sessionid);
-//  getUser(sessionid);
+  var id;
+  var jwt = getCookie('jwt');
+  $.post("api/member/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+    user = result.data.username;
+    id = result.data.id;
+    // alert(result.data.id + " " + result.data.username);
+    getInfoGame_one(id);
+  }).fail(function(result){
+    location.replace("index.php");
+  });
 });
 
-function getUser(sessionid) {
-  url = "api/member/getMember.php?id=";
-  var user = "";
-  //var count = "";
-  $.getJSON(url + sessionid, function(data){
-    this.user = data.username;
-    //this.count = data.count;
-    $('#username').html(this.user);
-    //$('#count').html(this.count);
-    //$('#username').html(this.user);
-  });
-}
-var rank = getInfoGame_one(sessionid);
+function getCookie(cname){
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' '){
+      c = c.substring(1);
+    }
 
-function getInfoGame_one(sessionid){
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+var rank = getInfoGame_one(id);
+
+function getInfoGame_one(id){
   url = "api/member/getinfogame.php?id=";
-  if (sessionid == "") {
+  if (id == "") {
     document.getElementById("txtHint").innerHTML = "";
     return;
   } else {
@@ -33,7 +46,7 @@ function getInfoGame_one(sessionid){
     xmlhttp.onreadystatechange = function(data) {
       if (this.readyState == 4 && this.status == 200) {
         //  var data = JSON.parse(this.responseText);
-        $.getJSON(url + sessionid, function(data){
+        $.getJSON(url + id, function(data){
           this.rank = data.rank;
           this.sumScore = data.sumScore;
           this.coin = data.coin;
@@ -50,7 +63,7 @@ function getInfoGame_one(sessionid){
         });
       }
     };
-    xmlhttp.open("GET",url + sessionid,true);
+    xmlhttp.open("GET",url + id,true);
     xmlhttp.send();
   }
 }

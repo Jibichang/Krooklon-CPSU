@@ -167,11 +167,6 @@ function showUpdateAccountForm(){
   alert("ok");
   $.post("api/member/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
     alert("ok");
-    // if response is valid, put user details in the form
-    // $('#username').attr("value", result.data.username);
-    // $('#email').attr("value", result.data.email);
-    // $("#username").val(result.data.username);
-    // $("#email").val(result.data.email);
   })
 
   // on error/fail, tell the user he needs to login to show the account page
@@ -214,7 +209,6 @@ function showLoginPage(){
   }
 
 $.fn.serializeObject = function(){
-
   var o = {};
   var a = this.serializeArray();
   $.each(a, function() {
