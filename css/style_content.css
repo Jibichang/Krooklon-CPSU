@@ -23,7 +23,7 @@
 .button-submit {
   padding-top: 0.5em;
   margin-top: 2em;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .button-submit a {
@@ -407,4 +407,58 @@ table {
   margin-left: auto;
   font-size: 30%;
   }*/
+}
+
+/*      LEARN       */
+.row-learn-content{
+  width: 90%;
+  text-align: none;
+  margin-left: 5%;
+  box-sizing: border-box;
+  font-size: 1.3em;
+}
+.row-learn-content img {
+  width: 70%;
+  text-align: center;
+}
+.row-learn-content::after{
+  display: table;
+  clear: both;
+}
+.buttonlearn, .mini_button {
+  font-family: 'K2D', sans-serif;
+  -webkit-transition-duration: 0.3s;
+  text-decoration: none;
+  padding: 15px 20px 15px 20px;
+  background-color: #ffcc66;
+  border-radius: 8px;
+  border: 2px solid #ffcc66;
+  font-size: 1em;
+}
+.mini_button {
+  border-radius: 50%;
+  padding: 10px 20px 10px 20px;
+}
+.buttonlearn a, .mini_button{
+  text-decoration: none;
+  color: black;
+}
+
+.buttonlearn:hover, .mini_button:hover {
+  background-color: #fff;
+  border: 2px solid #ffcc66;
+}
+
+.disable{
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 600px) {
+  .row-learn-content p{
+    font-size: 12px;
+  }
+  .buttonlearn, .mini_button {
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+  }
 }

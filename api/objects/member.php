@@ -31,21 +31,23 @@ class Member{
   public $SID;
   public $active;
   public $reg_date;
+  public $learnPage;
+  public $subChapt;
 
   public function __construct($connection){
     $this->connection = $connection;
   }
 
   public function create(){
-  $sid = md5($this->email);
+    $sid = md5($this->email);
 
     $query = "INSERT INTO $this->table_name
     SET  rank = 'ลูกเจี๊ยบหัดเดิน',
-        rankNo = '1',
-         username = :username,
-        password = :password,
-         email = :email,
-          filePic = 'defultKruklon.png',
+    rankNo = '1',
+    username = :username,
+    password = :password,
+    email = :email,
+    filePic = 'defultKruklon.png',
     learn1 = '0',
     learn2 = '0',
     learn3 = '0',
@@ -53,28 +55,28 @@ class Member{
     melody = '0',
     fast = '0',
     win = '0',
-          count = '0',
-                sumScore = '0',
-      coin = '5',
-      SID = '$sid',
-      active = 'no'";
+    count = '0',
+    sumScore = '0',
+    coin = '5',
+    SID = '$sid',
+    active = 'no'";
 
-      $stmt = $this->connection->prepare($query);
+    $stmt = $this->connection->prepare($query);
 
-      $this->username=htmlspecialchars(strip_tags($this->username));
-      $this->email=htmlspecialchars(strip_tags($this->email));
-      $this->password=htmlspecialchars(strip_tags($this->password));
+    $this->username=htmlspecialchars(strip_tags($this->username));
+    $this->email=htmlspecialchars(strip_tags($this->email));
+    $this->password=htmlspecialchars(strip_tags($this->password));
 
-      $stmt->bindParam(':username', $this->username);
-      $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':username', $this->username);
+    $stmt->bindParam(':email', $this->email);
 
-      $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-      $stmt->bindParam(':password', $password_hash);
+    $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
+    $stmt->bindParam(':password', $password_hash);
 
-      if($stmt->execute()){
-        return true;
-      }
-      return false;
+    if($stmt->execute()){
+      return true;
+    }
+    return false;
   }
 
   public function read(){
@@ -133,7 +135,7 @@ class Member{
       $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
       $stmt->bindParam(':password', $password_hash);
     }
-     $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':id', $this->id);
 
     if($stmt->execute()){
       return true;
@@ -192,39 +194,30 @@ class Member{
   }
 
   function emailExists(){
-      $query = "SELECT id, username, password, email
-      FROM  $this->table_name
-      WHERE email = ?
-      LIMIT 0,1";
+    $query = "SELECT id, username, password, email
+    FROM  $this->table_name
+    WHERE email = ?
+    LIMIT 0,1";
 
-      // prepare the query
-      $stmt = $this->connection->prepare( $query );
-      $this->email=htmlspecialchars(strip_tags($this->email));
-      $stmt->bindParam(1, $this->email);
+    // prepare the query
+    $stmt = $this->connection->prepare( $query );
+    $this->email=htmlspecialchars(strip_tags($this->email));
+    $stmt->bindParam(1, $this->email);
 
-      $stmt->execute();
-      $num = $stmt->rowCount();
-
-      // if email exists, assign values to object properties for easy access and use for php sessions
-      if($num>0){
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $this->id = $row['id'];
-        $this->username = $row['username'];
-        $this->email = $row['email'];
-        $this->password = $row['password'];
-        return true;
-      }
-      return false;
-    }
-
-  public function setDataLogin($username, $password)
-  {
-    $query = "INSERT INTO datalogin(username) VALUES('$this->username')";
-    $stmt = $this->connection->prepare($query);
     $stmt->execute();
+    $num = $stmt->rowCount();
 
-    header("Location:/main.php");
+    // if email exists, assign values to object properties for easy access and use for php sessions
+    if($num>0){
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      $this->id = $row['id'];
+      $this->username = $row['username'];
+      $this->email = $row['email'];
+      $this->password = $row['password'];
+      return true;
+    }
+    return false;
   }
 
   public function getRank(){
@@ -241,6 +234,34 @@ class Member{
 
     $stmt-> execute();
     return $stmt;
+  }
+
+  public function updateLearn(){
+    $this->learnPage=htmlspecialchars(strip_tags($this->learnPage));
+    if ($this->learnPage == "learn1") {
+      $query = "UPDATE $this->table_name
+      SET learn1 = :subChapt WHERE id = :id";
+
+    }elseif ($this->learnPage == "learn2") {
+      $query = "UPDATE $this->table_name
+      SET learn2 = :subChapt WHERE id = :id";
+    }else {
+      $query = "UPDATE $this->table_name
+      SET learn3 = :subChapt WHERE id = :id";
+    }
+
+    $stmt = $this->connection->prepare($query);
+    $this->id=htmlspecialchars(strip_tags($this->id));
+    $this->subChapt=htmlspecialchars(strip_tags($this->subChapt));
+
+
+    $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(':subChapt', $this->subChapt);
+
+    if($stmt->execute()){
+      return true;
+    }
+    return false;
   }
 
 

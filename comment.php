@@ -10,9 +10,6 @@
     <link rel="stylesheet" href="css/style_content.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
-    <script type="text/javascript">
-      var sessionid = "<?php echo $_SESSION['id']; ?>";
-    </script>
     <script src="api/app/comment/comment.js"></script>
 
   </head>

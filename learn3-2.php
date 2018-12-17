@@ -1,30 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>ครูกลอน</title>
-    <link rel="icon" href="pic/logox.png">
-    <meta name="warunee" content="Adtile">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="css/styles_menu.css">
-    <link rel="stylesheet" href="css/style_content.css">
-    <link rel="stylesheet" href="css/style_content_learn.css">
-    <link href="https://fonts.googleapis.com/css?family=Pridi" rel="stylesheet">
-  </head>
-  <body>
-	  <?php include('topbar.php') ?>
-    <div class="topic_content">
-    <h1>บทที่ 3 : เพิ่มความไพเราะของบทกลอน</h1>
-      <div class="colum_text">
-        <h2>ควรมีเพื่อเพิ่มความไพเราะ</h2>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>ครูกลอน</title>
+  <link rel="icon" href="pic/logox.png">
+  <meta name="warunee" content="Adtile">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="css/styles_menu.css">
+  <link rel="stylesheet" href="css/style_content.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
+  <script type="text/javascript">
+  page = "learn3";
+  subChapter = "100";
+  </script>
+  <script src="api/app/member/learn.js"></script>
+
+</head>
+<body>
+  <?php include('topbar.php') ?>
+  <section style="margin-top:30px;" id="content-learn">
+    <div style="width:80%; margin-left:10%;">
+    <h2>บทที่ 3 : เพิ่มความไพเราะของบทกลอน</h2>
+  </div><br>
+    <div class="row-learn-content">
+      <p align="left">
+        <br><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>ควรมีเพื่อเพิ่มความไพเราะ</b><br>
+
         <br/>
-        <p >
         1) สัมผัสใน คือ ตำแหน่งสัมผัสเสียงที่เกิดขึ้นภายในวรรค เป็นสัมผัสที่ไม่บังคับ แต่หากมีจะช่วยให้กลอนสุดภาพมีความไพเราะมากขึ้น โดยสัมผัสในนี้จะสามารถเป็นได้ทั้งสัมผัสเสียงสระ และสัมผัสอักษร (เสียงพยัญชนะต้น) ดังนี้ <br>
-        </p>
         <br/>
-        <img src="pic/internal.png" style="width:700px;margin-left:50px;">
+        <img src="pic/internal.png" style="margin-left:10%;">
         <br/><br/>
-        <p id="p">
 ตัวอย่างกลอนจาก พระอภัยมณีเกี้ยวนางละเวง
 
 <br><br>
@@ -35,68 +44,24 @@
 
  <br>
             <br>
-        </p>
-        <p id="p">
         2) เสียงวรรณยุกต์ เสียงวรรณยุกต์พยางค์สุดท้ายที่นิยมและไม่นิยมในแต่ละวรรค ดังนี้ <br>
-         </p>
-         <p id="p">
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;วรรคสลับ ไม่นิยมลงท้ายด้วยเสียงสามัญ<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;วรรครับ นิยมเสียงจัตวา <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;วรรครองและวรรคส่ง นิยมเสียงสามัญ
  <br/>
-    </p>
-
-      </div>
-  <!-------------------------------------------------------->
-  <div class="colum_button">
-        <div class="page_button">
-        <form action="learn.php">
-          <button type="submit">
-            <h3>หน้าหลักบทเรียน</h3>
-          </button>
-        </form>
+      </p>
+    </div><br><br>
+    <div class="button-learn">
+      <button type="submit" class="buttonlearn" value="learn1" name="ch" id="pre">
+        <a href="learn.php">หน้าหลักบทเรียน</a></button>
+        <a href="learn3.php" class="mini_button">1</a>
+        <a href="" class="mini_button">2</a>
+        <button type="submit" class="buttonlearn" value="learn1" name="ch" id="next">
+          <a href="playMode.php">ไปเล่นเกม</a></button>
         </div>
-
-        <div class="mini">
-        <div class="mini_sign">
-        <form action="learn3.php">
-          <button type="submit">
-            <h3><<</h3>
-          </button>
-        </form>
-        </div>
-        <div class="mini_push">
-        <form action="learn3.php">
-          <button type="submit">
-            <h3>1</h3>
-          </button>
-        </form>
-        </div>
-
-        <div class="mini_button">
-        <form >
-          <button type="submit">
-            <h3>2</h3>
-          </button>
-        </form>
-        </div>
-        <div class="mini_sign">
-        <form >
-          <button type="submit">
-            <h3>>></h3>
-          </button>
-        </form>
-        </div>
-      </div>
-      <div class="page_button">
-        <form  action="learn.php">
-          <button type="submit">
-            <h3>กลับหน้าหลัก</h3>
-          </button>
-        </form>
-        </div>
-    </div>
-</div>
-<?php include('footer.php'); ?>
-  </body>
+      </section>
+      <br><br><br><br>
+      <?php include('footer.php'); ?>
+    </body>
 </html>

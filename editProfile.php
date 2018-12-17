@@ -26,7 +26,7 @@
           // $("#email").val(result.data.email);
         })
         .fail(function(result){
-          $('#response').html("<div class='alert alert-danger'>Please login to access the account page.</div>");
+          location.replace("index.php");
         });
 
         $(document).on('submit', '#update_account_form', function(){
